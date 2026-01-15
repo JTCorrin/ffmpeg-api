@@ -22,6 +22,10 @@ process.on('SIGTERM', handle);
 
 app.use(compression());
 
+//API key authentication middleware - must be before file upload handling
+const apiKeyAuth = require('./middleware/apiKeyAuth.js');
+app.use(apiKeyAuth);
+
 //routes to handle file upload for all POST methods
 var upload = require('./routes/uploadfile.js');
 app.use(upload);

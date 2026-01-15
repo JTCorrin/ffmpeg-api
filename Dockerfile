@@ -32,7 +32,7 @@ COPY ./src .
 RUN npm install
 
 # Create single binary file
-RUN pkg --targets node12-alpine-x64 /usr/src/app/package.json
+RUN pkg --targets node18-alpine-x64 /usr/src/app/package.json
 
 
 FROM jrottenberg/ffmpeg:4.4.1-alpine313
