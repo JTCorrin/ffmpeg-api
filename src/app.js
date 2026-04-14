@@ -42,6 +42,10 @@ app.use('/video/extract', extract);
 var probe = require('./routes/probe.js');
 app.use('/probe', probe);
 
+// strip container/metadata (video) and EXIF-style tags (images)
+var sanitize = require('./routes/sanitize.js');
+app.use('/sanitize', sanitize);
+
 require('express-readme')(app, {
     filename: 'index.md',
     routes: ['/'],
