@@ -16,14 +16,14 @@
 #
 #####################################################################
 
-FROM node:18.19.0-alpine3.19 as build
+FROM node:18.19.0-alpine3.19 AS build
 
 RUN apk add --no-cache git
 
 # install pkg
 RUN npm install -g pkg
 
-ENV PKG_CACHE_PATH /usr/cache
+ENV PKG_CACHE_PATH=/usr/cache
 
 WORKDIR /usr/src/app
 
@@ -36,6 +36,9 @@ RUN pkg --targets node18-alpine-x64 /usr/src/app/package.json
 
 
 FROM jrottenberg/ffmpeg:4.4.1-alpine313
+
+# Strip image metadata (EXIF/IPTC/XMP) via API; perl-image-exiftool provides `exiftool`
+RUN apk add --no-cache perl-image-exiftool
 
 # Create user and change workdir
 RUN adduser --disabled-password --home /home/ffmpgapi ffmpgapi
